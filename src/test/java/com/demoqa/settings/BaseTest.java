@@ -1,15 +1,15 @@
-package com.demoqa.Settings;
+package com.demoqa.settings;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 
-import static com.codeborne.selenide.Selenide.clearBrowserCookies;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
-public class Config {
+public class BaseTest {
 
 @BeforeEach
 public void beforeTests() {
+
     clearBrowserCookies();
 
     Configuration.baseUrl = "https://demoqa.com/automation-practice-form";
@@ -18,6 +18,9 @@ public void beforeTests() {
     Configuration.pageLoadStrategy = "eager";
 
     open("");
+
+    executeJavaScript("$('#fixedban').remove()");
+    executeJavaScript("$('footer').remove()");
 }
 
 }

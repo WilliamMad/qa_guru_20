@@ -1,17 +1,15 @@
-package com.demoqa.Tests;
+package com.demoqa.tests;
 
-import com.codeborne.selenide.Condition;
-import com.demoqa.Settings.Config;
+import com.demoqa.settings.BaseTest;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Keys;
 
 import java.util.Arrays;
 
-import static com.codeborne.selenide.Condition.appear;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
-public class demoqaTests extends Config {
+public class DemoqaTests extends BaseTest {
 
     @Test
     void practiseFormTest() {
@@ -40,8 +38,7 @@ public class demoqaTests extends Config {
         for (String s : Arrays.asList("Thanks for submitting the form", "Shah Rukh Khan",
                 "Shahrukh@bollywood.com", "Male", "9111657385", "02 December,1965",
                 "Hindi, Arts", "Music", "1.png", "India", "NCR Delhi")) {
-            $("[class = 'modal-content']").$(byText(s))
-                    .should(appear);
+            $("[class = 'modal-content']").shouldHave(text(s));
         }
     }
 }
