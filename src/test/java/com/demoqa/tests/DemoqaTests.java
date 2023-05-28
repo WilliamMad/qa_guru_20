@@ -15,7 +15,7 @@ public class DemoqaTests extends BaseTest {
     @Test
     void practiseFormTest() {
 
-        open("");
+        open("/automation-practice-form");
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
 
