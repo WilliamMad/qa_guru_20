@@ -16,11 +16,6 @@ public void beforeTests() {
     Configuration.browserSize = "1920x1080";
     Configuration.holdBrowserOpen = true;
     Configuration.pageLoadStrategy = "eager";
-
-    open("");
-
-    executeJavaScript("$('#fixedban').remove()");
-    executeJavaScript("$('footer').remove()");
 }
 
 }

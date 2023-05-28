@@ -7,12 +7,18 @@ import java.util.Arrays;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class DemoqaTests extends BaseTest {
 
     @Test
     void practiseFormTest() {
+
+        open("");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
+
         $("#firstName").setValue("Shah Rukh");
         $("#lastName").setValue("Khan");
         $("#userEmail").setValue("Shahrukh@bollywood.com");
