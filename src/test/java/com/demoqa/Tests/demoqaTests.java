@@ -5,6 +5,8 @@ import com.demoqa.Settings.Config;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
+import java.util.Arrays;
+
 import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -16,7 +18,7 @@ public class demoqaTests extends Config {
         $("#firstName").setValue("Shah Rukh");
         $("#lastName").setValue("Khan");
         $("#userEmail").setValue("Shahrukh@bollywood.com");
-        $(byText("Male")).click();
+        $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("9111657385");
         $("#dateOfBirthInput").click();
         $("[class*='month-select']").selectOptionByValue("11");
@@ -24,7 +26,7 @@ public class demoqaTests extends Config {
         $("[class*='day--002']").click();
         $("#subjectsInput").setValue("Hindi").pressEnter();
         $("#subjectsInput").setValue("Arts").pressEnter();
-        $(byText("Music")).click();
+        $("#hobbiesWrapper").$(byText("Music")).click();
         $("input#uploadPicture").uploadFromClasspath("1.png");
         $("#currentAddress").setValue("India");
         $("#react-select-3-input").setValue("NCR").pressEnter();
@@ -35,16 +37,11 @@ public class demoqaTests extends Config {
     }
 
     void checkResult() {
-        $(byText("Thanks for submitting the form")).should(appear);
-        $(byText("Shah Rukh Khan")).should(appear);
-        $(byText("Shahrukh@bollywood.com")).should(appear);
-        $(byText("Male")).should(appear);
-        $(byText("9111657385")).should(appear);
-        $(byText("02 December,1965")).should(appear);
-        $(byText("Hindi, Arts")).should(appear);
-        $(byText("Music")).should(appear);
-        $(byText("1.png")).should(appear);
-        $(byText("India")).should(appear);
-        $(byText("NCR Delhi")).should(appear);
+        for (String s : Arrays.asList("Thanks for submitting the form", "Shah Rukh Khan",
+                "Shahrukh@bollywood.com", "Male", "9111657385", "02 December,1965",
+                "Hindi, Arts", "Music", "1.png", "India", "NCR Delhi")) {
+            $("[class = 'modal-content']").$(byText(s))
+                    .should(appear);
+        }
     }
 }
