@@ -1,6 +1,5 @@
 package com.demoqa.tests;
 
-import com.demoqa.settings.BaseTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
