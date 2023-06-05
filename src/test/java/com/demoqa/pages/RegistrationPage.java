@@ -26,12 +26,17 @@ public class RegistrationPage {
             stateInput = $("#react-select-3-input"),
             cityInput = $("#react-select-4-input"),
             submitClick = $("#submit"),
-            checkResult = $(".table-responsive");
+            checkResults = $(".table-responsive");
 
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+
+        return this;
+    }
+
+    public RegistrationPage executeJs() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
 
@@ -116,10 +121,9 @@ public class RegistrationPage {
         submitClick.click();
     }
 
-    public void checkResult(String name, String surname, String email, String phone) {
+    public RegistrationPage checkResult(String key, String value) {
+        checkResults.$(byText(key)).sibling(0).shouldHave(text(value));
 
-        checkResult.shouldHave(text(name), text(surname),
-                text(email), text(phone));
-
+        return this;
     }
 }

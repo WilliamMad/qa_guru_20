@@ -1,12 +1,15 @@
 package com.demoqa.tests;
 
+import com.demoqa.pages.RegistrationPage;
 import org.junit.jupiter.api.Test;
 public class RegistrationWithPageObjectsTests extends BaseTest{
+
+    RegistrationPage registrationPage = new RegistrationPage();
 
     @Test
     void successfulRegistrationTest() {
 
-        registrationPage.openPage()
+        registrationPage.openPage().executeJs()
                 .setFirstName("Shah Rukh")
                 .setLastName("Khan")
                 .setUserEmail("Shahrukh@bollywood.com")
@@ -21,11 +24,17 @@ public class RegistrationWithPageObjectsTests extends BaseTest{
                 .setCity("Delhi")
                 .clickSubmit();
 
-        registrationPage.checkResult(
-                "Shah Rukh",
-                "Khan",
-                "Shahrukh@bollywood.com",
-                "9111657385"
-        );
+
+        registrationPage
+                .checkResult("Student Name", "Shah Rukh Khan")
+                .checkResult("Student Email", "Shahrukh@bollywood.com")
+                .checkResult("Gender", "Male")
+                .checkResult("Mobile", "9111657385")
+                .checkResult("Date of Birth", "02 November,1965")
+                .checkResult("Subjects", "Hindi")
+                .checkResult("Hobbies", "Music")
+                .checkResult("Picture", "1.png")
+                .checkResult("Address", "India")
+                .checkResult("State and City", "NCR Delhi");
     }
 }

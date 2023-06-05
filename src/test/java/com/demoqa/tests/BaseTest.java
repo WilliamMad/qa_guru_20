@@ -1,14 +1,10 @@
 package com.demoqa.tests;
 
-import com.demoqa.pages.RegistrationPage;
 import org.junit.jupiter.api.BeforeEach;
-
 import static com.codeborne.selenide.Configuration.*;
 
 
 public class BaseTest {
-
-    RegistrationPage registrationPage = new RegistrationPage();
 
     @BeforeEach
      void beforeEach() {
@@ -17,5 +13,4 @@ public class BaseTest {
         holdBrowserOpen = true;
         pageLoadStrategy = "eager";
     }
-
 }
