@@ -52,6 +52,7 @@ public class RegistrationWithFakerTests extends BaseTest{
                 .checkResult("Date of Birth", day + " " + month + "," + year)
                 .checkResult("Subjects", subject)
                 .checkResult("Hobbies", hobby)
+                .checkResult("Picture", fileName)
                 .checkResult("Picture", "1.png")
                 .checkResult("Address", address)
                 .checkResult("State and City", state + " " + city);
