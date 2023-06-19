@@ -30,7 +30,7 @@ public class ParametrizedTests extends BaseTest{
     },
             delimiter = '|')
     @ParameterizedTest
-    void SearchResultShouldContainAuthorName(String bookName, String authorName) {
+    void searchResultShouldContainAuthorName(String bookName, String authorName) {
         $("#searchBox").setValue(bookName);
         $("[class='rt-tbody']").shouldHave(text(authorName));
     }
@@ -47,7 +47,7 @@ public class ParametrizedTests extends BaseTest{
     }
 
 
-    static Stream<Arguments> MultipleResults() {
+    static Stream<Arguments> multipleResults() {
         return Stream.of(
                 Arguments.of("Git Pocket Guide",
                         "Learning JavaScript Design Patterns",
@@ -58,9 +58,9 @@ public class ParametrizedTests extends BaseTest{
         );
     }
     @DisplayName("Поиск должен выдавать все книги, соответствующие издательству")
-    @MethodSource("MultipleResults")
+    @MethodSource("multipleResults")
     @ParameterizedTest
-    void SearchResultShouldContainMultipleResults(String bookNames) {
+    void searchResultShouldContainMultipleResults(String bookNames) {
         $("#searchBox").setValue("O'Reilly Media");
         $("[class='rt-tbody'] div").shouldHave(text(bookNames));
     }
