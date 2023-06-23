@@ -4,45 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonParseException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import qaguru.hw10.models.ProductProviders;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 
 public class JsonTest {
 
     ClassLoader cl = JsonTest.class.getClassLoader();
-
-    public static class ProductProviders {
-        private String productId;
-        private List<Provider> providers;
-
-        public String getProductId() {
-            return productId;
-        }
-        public List<Provider> getProviders() {
-            return providers;
-        }
-    }
-
-
-    public static class Provider {
-        private String name;
-        private String contact;
-        private String email;
-
-        public String getName() {
-            return name;
-        }
-        public String getContact() {
-            return contact;
-        }
-        public String getEmail() {
-            return email;
-        }
-    }
-
 
     @Test
     public void testJsonParsing() throws JsonParseException, IOException {
