@@ -1,4 +1,4 @@
-package com.demoqa.tests.HW10;
+package qaguru.hw10;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonParseException;

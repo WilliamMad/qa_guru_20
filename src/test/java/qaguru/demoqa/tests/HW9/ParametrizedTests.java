@@ -1,6 +1,6 @@
-package com.demoqa.tests.HW9;
+package qaguru.demoqa.tests.HW9;
 
-import com.demoqa.tests.BaseTest;
+import qaguru.demoqa.tests.BaseTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

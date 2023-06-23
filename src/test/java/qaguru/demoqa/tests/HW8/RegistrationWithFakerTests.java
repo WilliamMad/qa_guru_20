@@ -1,8 +1,8 @@
-package com.demoqa.tests.HW8;
+package qaguru.demoqa.tests.HW8;
 
-import com.demoqa.pages.RegistrationPage;
-import com.demoqa.tests.BaseTest;
-import com.demoqa.utils.GetRandomData;
+import qaguru.demoqa.pages.RegistrationPage;
+import qaguru.demoqa.tests.BaseTest;
+import qaguru.demoqa.utils.GetRandomData;
 import org.junit.jupiter.api.Test;
 
 public class RegistrationWithFakerTests extends BaseTest {

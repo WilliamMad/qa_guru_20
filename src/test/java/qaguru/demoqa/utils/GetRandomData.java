@@ -1,4 +1,4 @@
-package com.demoqa.utils;
+package qaguru.demoqa.utils;
 
 import com.github.javafaker.Faker;
 

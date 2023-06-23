@@ -1,7 +1,7 @@
-package com.demoqa.tests.HW7;
+package qaguru.demoqa.tests.HW7;
 
-import com.demoqa.pages.RegistrationPage;
-import com.demoqa.tests.BaseTest;
+import qaguru.demoqa.pages.RegistrationPage;
+import qaguru.demoqa.tests.BaseTest;
 import org.junit.jupiter.api.Test;
 public class RegistrationWithPageObjectsTests extends BaseTest {
 

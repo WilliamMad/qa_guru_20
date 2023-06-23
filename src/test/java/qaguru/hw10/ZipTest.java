@@ -1,4 +1,4 @@
-package com.demoqa.tests.HW10;
+package qaguru.hw10;
 
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
