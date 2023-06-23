@@ -1,8 +1,9 @@
-package com.demoqa.tests;
+package com.demoqa.tests.HW7;
 
 import com.demoqa.pages.RegistrationPage;
+import com.demoqa.tests.BaseTest;
 import org.junit.jupiter.api.Test;
-public class RegistrationWithPageObjectsTests extends BaseTest{
+public class RegistrationWithPageObjectsTests extends BaseTest {
 
     RegistrationPage registrationPage = new RegistrationPage();
 

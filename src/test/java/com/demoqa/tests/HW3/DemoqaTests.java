@@ -1,5 +1,6 @@
-package com.demoqa.tests;
+package com.demoqa.tests.HW3;
 
+import com.demoqa.tests.BaseTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

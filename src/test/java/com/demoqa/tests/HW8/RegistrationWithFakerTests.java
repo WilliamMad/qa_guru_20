@@ -1,10 +1,11 @@
-package com.demoqa.tests;
+package com.demoqa.tests.HW8;
 
 import com.demoqa.pages.RegistrationPage;
+import com.demoqa.tests.BaseTest;
 import com.demoqa.utils.GetRandomData;
 import org.junit.jupiter.api.Test;
 
-public class RegistrationWithFakerTests extends BaseTest{
+public class RegistrationWithFakerTests extends BaseTest {
 
     RegistrationPage registrationPage = new RegistrationPage();
     GetRandomData randomData = new GetRandomData();

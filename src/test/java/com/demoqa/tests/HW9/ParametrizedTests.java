@@ -1,5 +1,6 @@
-package com.demoqa.tests;
+package com.demoqa.tests.HW9;
 
+import com.demoqa.tests.BaseTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,7 +14,7 @@ import java.util.stream.Stream;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 
-public class ParametrizedTests extends BaseTest{
+public class ParametrizedTests extends BaseTest {
 
     @BeforeEach
     void openPage() {

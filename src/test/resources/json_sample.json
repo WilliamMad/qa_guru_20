@@ -1,0 +1,15 @@
+{
+  "productId": "Product",
+  "providers": [
+    {
+      "name": "Supplier A",
+      "contact": "John Smith",
+      "email": "johnsmith@suppliera.com"
+    },
+    {
+      "name": "Supplier B",
+      "contact": "Jane Doe",
+      "email": "janedoe@supplierb.com"
+    }
+  ]
+}
