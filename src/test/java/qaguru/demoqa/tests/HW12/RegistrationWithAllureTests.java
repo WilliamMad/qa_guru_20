@@ -1,5 +1,6 @@
 package qaguru.demoqa.tests.HW12;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import qaguru.demoqa.pages.RegistrationPage;
@@ -8,6 +9,8 @@ import qaguru.demoqa.utils.GetRandomData;
 
 import static io.qameta.allure.Allure.step;
 
+@Tag("remote")
+@DisplayName("Successful registration test")
 public class RegistrationWithAllureTests extends BaseTestRemote {
 
     RegistrationPage registrationPage = new RegistrationPage();
@@ -30,7 +33,6 @@ public class RegistrationWithAllureTests extends BaseTestRemote {
 
 
     @Test
-    @Tag("remote")
     void successfulRegistrationTest() {
 
         step ("Open form", () -> {
