@@ -1,21 +1,40 @@
 plugins {
     id 'java-library'
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 repositories {
     mavenCentral()
 }
 
+def allureVersion = "2.21.0"
+
+allure {
+    report {
+        version.set(allureVersion)
+    }
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 {
+                adapterVersion.set(allureVersion)
+            }
+        }
+    }
+}
+
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
-    testImplementation 'com.codeborne:selenide:6.15.0'
-    testImplementation 'com.codeborne:pdf-test:1.5.0'
-    testImplementation 'com.codeborne:xls-test:1.4.3'
-    testImplementation 'com.opencsv:opencsv:5.7.1'
-    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.12.7.1'
-    testImplementation 'org.assertj:assertj-core:3.24.2'
-    testImplementation 'com.github.javafaker:javafaker:1.0.2'
-    testImplementation 'org.slf4j:slf4j-simple:2.0.7'
+    testImplementation(
+            'com.codeborne:selenide:6.14.0',
+            'com.github.javafaker:javafaker:1.0.2',
+            "io.qameta.allure:allure-selenide:$allureVersion",
+            'org.junit.jupiter:junit-jupiter:5.9.3',
+            'org.slf4j:slf4j-simple:2.0.7',
+            'com.fasterxml.jackson.core:jackson-databind:2.12.7.1',
+            'com.codeborne:pdf-test:1.5.0',
+            'com.codeborne:xls-test:1.4.3',
+            'com.opencsv:opencsv:5.7.1'
+    )
 }
 
 
@@ -25,4 +44,10 @@ tasks.withType(JavaCompile) {
 
 test {
     useJUnitPlatform()
+}
+
+task simple_test(type: Test) {
+    useJUnitPlatform{
+        includeTags("remote")
+    }
 }
