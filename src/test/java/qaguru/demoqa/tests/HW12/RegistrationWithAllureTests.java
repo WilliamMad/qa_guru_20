@@ -6,6 +6,8 @@ import qaguru.demoqa.pages.RegistrationPage;
 import qaguru.demoqa.tests.BaseTestRemote;
 import qaguru.demoqa.utils.GetRandomData;
 
+import static io.qameta.allure.Allure.step;
+
 public class RegistrationWithAllureTests extends BaseTestRemote {
 
     RegistrationPage registrationPage = new RegistrationPage();
@@ -31,33 +33,37 @@ public class RegistrationWithAllureTests extends BaseTestRemote {
     @Tag("remote")
     void successfulRegistrationTest() {
 
-        registrationPage.openPage().executeJs()
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .setUserEmail(email)
-                .setGender(gender)
-                .setUserNumber(phoneNumber)
-                .setBirthDay(day, month, year)
-                .setSubject(subject)
-                .setHobbies(hobby)
-                .uploadFile(fileName)
-                .setAddress(address)
-                .setState(state)
-                .setCity(city)
-                .clickSubmit();
-
-
-        registrationPage
-                .checkResult("Student Name", firstName + " " + lastName)
-                .checkResult("Student Email", email)
-                .checkResult("Gender", gender)
-                .checkResult("Mobile", phoneNumber)
-                .checkResult("Date of Birth", day + " " + month + "," + year)
-                .checkResult("Subjects", subject)
-                .checkResult("Hobbies", hobby)
-                .checkResult("Picture", fileName)
-                .checkResult("Picture", "1.png")
-                .checkResult("Address", address)
-                .checkResult("State and City", state + " " + city);
+        step ("Open form", () -> {
+            registrationPage.openPage().executeJs();
+        });
+        step("Fill form", () -> {
+                registrationPage.setFirstName(firstName)
+                            .setLastName(lastName)
+                            .setUserEmail(email)
+                            .setGender(gender)
+                            .setUserNumber(phoneNumber)
+                            .setBirthDay(day, month, year)
+                            .setSubject(subject)
+                            .setHobbies(hobby)
+                            .uploadFile(fileName)
+                            .setAddress(address)
+                            .setState(state)
+                            .setCity(city)
+                            .clickSubmit();
+                });
+        step("Verify results", () -> {
+            registrationPage
+                    .checkResult("Student Name", firstName + " " + lastName)
+                    .checkResult("Student Email", email)
+                    .checkResult("Gender", gender)
+                    .checkResult("Mobile", phoneNumber)
+                    .checkResult("Date of Birth", day + " " + month + "," + year)
+                    .checkResult("Subjects", subject)
+                    .checkResult("Hobbies", hobby)
+                    .checkResult("Picture", fileName)
+                    .checkResult("Picture", "1.png")
+                    .checkResult("Address", address)
+                    .checkResult("State and City", state + " " + city);
+        });
     }
 }
