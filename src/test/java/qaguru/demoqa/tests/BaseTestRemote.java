@@ -21,7 +21,7 @@ public class BaseTestRemote {
 
     @BeforeAll
     static void beforeAll() {
-        baseUrl = getProperty("baseURL", "https://demoqa.com/");
+        baseUrl = getProperty("baseURL", "https://demoqa.com");
         remote = getProperty("remote", "https://user1:1234@selenoid.autotests.cloud/wd/hub");
         browser = getProperty("browser", "chrome");
         browserSize = getProperty("browserSize", "1920x1080");
