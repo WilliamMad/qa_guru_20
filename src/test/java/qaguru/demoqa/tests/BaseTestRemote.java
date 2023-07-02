@@ -12,6 +12,7 @@ import java.util.Map;
 
 import static com.codeborne.selenide.Configuration.*;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
+import static java.lang.System.getProperty;
 import static qaguru.demoqa.helpers.Attachments.*;
 
 
@@ -19,8 +20,11 @@ public class BaseTestRemote {
 
     @BeforeAll
     static void beforeAll() {
-        baseUrl = "https://demoqa.com";
-        browserSize = "1920x1080";
+        baseUrl = getProperty("baseURL", "https://demoqa.com");
+        remote = getProperty("remoteURL", "https://user1:1234@selenoid.autotests.cloud/wd/hub");
+        browser = getProperty("browser", "chrome");
+        browserSize = getProperty("windowSize", "1920x1080");
+        browserVersion = getProperty("version", "114");
         holdBrowserOpen = true;
         pageLoadStrategy = "eager";
 
