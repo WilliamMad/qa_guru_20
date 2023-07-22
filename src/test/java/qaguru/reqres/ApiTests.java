@@ -1,22 +1,30 @@
 package qaguru.reqres;
 
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.*;
 
 public class ApiTests {
 
+    @BeforeAll
+    static public void setUp() {
+        RestAssured.baseURI = "https://reqres.in";
+    }
+
     @Test
-    void UserNotFoundTest() {
+    void userNotFoundTest() {
 
         given()
                 .log().uri()
                 .log().method()
                 .log().body()
                 .when()
-                .get("https://reqres.in/api/users/99")
+                .get("/api/users/99")
                 .then()
                 .log().status()
                 .log().body()
@@ -31,7 +39,7 @@ public class ApiTests {
                 .log().method()
                 .log().body()
                 .when()
-                .delete("https://reqres.in/api/users/2")
+                .delete("/api/users/2")
                 .then()
                 .log().status()
                 .log().body()
@@ -50,7 +58,7 @@ public class ApiTests {
                 .contentType(JSON)
                 .body(authData)
                 .when()
-                .put("https://reqres.in/api/users/2")
+                .put("/api/users/2")
                 .then()
                 .log().status()
                 .log().body()
@@ -68,7 +76,7 @@ public class ApiTests {
                 .log().method()
                 .log().body()
                 .when()
-                .get("https://reqres.in/api/users/2")
+                .get("/api/users/2")
                 .then()
                 .log().status()
                 .log().body()
@@ -77,7 +85,7 @@ public class ApiTests {
                         "data.email", is("janet.weaver@reqres.in"),
                         "data.first_name", is("Janet"),
                         "data.last_name", is("Weaver"),
-                        "data.avatar", is("https://reqres.in/img/faces/2-image.jpg")
+                        "data.avatar", is( baseURI + "/img/faces/2-image.jpg")
                 );
     }
 
@@ -89,7 +97,7 @@ public class ApiTests {
                 .log().method()
                 .log().body()
                 .when()
-                .get("https://reqres.in/api/unknown")
+                .get("/api/unknown")
                 .then()
                 .log().status()
                 .log().body()
