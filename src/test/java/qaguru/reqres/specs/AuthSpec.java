@@ -8,6 +8,7 @@ import static io.restassured.RestAssured.with;
 import static io.restassured.filter.log.LogDetail.BODY;
 import static io.restassured.filter.log.LogDetail.STATUS;
 import static io.restassured.http.ContentType.JSON;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static qaguru.reqres.helpers.CustomAllureListener.withCustomTemplates;
 
 public class AuthSpec {
@@ -24,6 +25,20 @@ public class AuthSpec {
             .log(STATUS)
             .log(BODY)
             .expectStatusCode(200)
+            .build();
+
+    public static ResponseSpecification response200AndUserSchemaCheckSpec = new ResponseSpecBuilder()
+            .log(STATUS)
+            .log(BODY)
+            .expectStatusCode(200)
+            .expectBody(matchesJsonSchemaInClasspath("schemas/user-2-schema.json"))
+            .build();
+
+    public static ResponseSpecification response200AndMassiveSchemaCheckSpec = new ResponseSpecBuilder()
+            .log(STATUS)
+            .log(BODY)
+            .expectStatusCode(200)
+            .expectBody(matchesJsonSchemaInClasspath("schemas/users-massive-schema.json"))
             .build();
 
     public static ResponseSpecification response404Spec = new ResponseSpecBuilder()

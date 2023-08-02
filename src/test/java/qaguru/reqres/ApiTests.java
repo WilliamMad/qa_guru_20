@@ -82,7 +82,7 @@ public class ApiTests {
                         .when()
                         .get("/users/2")
                         .then()
-                        .spec(response200Spec)
+                        .spec(response200AndUserSchemaCheckSpec)
                         .extract().as(UserInfoModel.class));
 
         step("Check response", () -> {
@@ -105,7 +105,7 @@ public class ApiTests {
                         .when()
                         .get("/unknown")
                         .then()
-                        .spec(response200Spec)
+                        .spec(response200AndMassiveSchemaCheckSpec)
                         .extract().as(UsersMassiveModel.class));
 
         step("Check response", () -> {
