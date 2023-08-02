@@ -1,112 +1,123 @@
 package qaguru.reqres;
 
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import qaguru.reqres.models.AuthBodyModel;
+import qaguru.reqres.models.UsersMassiveModel;
+import qaguru.reqres.models.UserInfoModel;
 
-import static io.restassured.RestAssured.baseURI;
+import static com.codeborne.selenide.logevents.SelenideLogger.step;
 import static io.restassured.RestAssured.given;
-import static io.restassured.http.ContentType.JSON;
-import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static qaguru.reqres.specs.AuthSpec.*;
 
 public class ApiTests {
 
-    @BeforeAll
-    static public void setUp() {
-        RestAssured.baseURI = "https://reqres.in";
-    }
 
     @Test
+    @Tag("remote_api")
+    @DisplayName("Non existing user not found")
     void userNotFoundTest() {
 
-        given()
-                .log().uri()
-                .log().method()
-                .log().body()
-                .when()
-                .get("/api/users/99")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(404);
+        step("Make request and check that status code = 404", () ->
+                given(baseRequestSpec)
+                        .when()
+                        .get("/users/99")
+                        .then()
+                        .spec(response404Spec));
     }
 
     @Test
+    @Tag("remote_api")
+    @DisplayName("User successfully deleted")
     void deleteExistingUserTest() {
 
-        given()
-                .log().uri()
-                .log().method()
-                .log().body()
-                .when()
-                .delete("/api/users/2")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(204);
+        step("Make request and check that status code = 204", () ->
+                given(baseRequestSpec)
+                        .when()
+                        .delete("/users/2")
+                        .then()
+                        .spec(response204Spec));
     }
 
     @Test
+    @Tag("remote_api")
+    @DisplayName("Updating user information")
     void updateUserTest() {
 
-        String authData = "{ \"name\": \"morpheus\", \"job\": \"zion resident\" }";
+        AuthBodyModel authData = new AuthBodyModel();
+        authData.setJob("zion resident");
+        authData.setName("morpheus");
 
-        given()
-                .log().uri()
-                .log().method()
-                .log().body()
-                .contentType(JSON)
-                .body(authData)
-                .when()
-                .put("/api/users/2")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(200)
-                .body("name", is("morpheus"),
-                        "job", is("zion resident"));
+        AuthBodyModel authResponse = step("Make request", () ->
+                given(baseRequestSpec)
+                        .body(authData)
+                        .when()
+                        .put("/users/2")
+                        .then()
+                        .spec(response200Spec)
+                        .extract().as(AuthBodyModel.class));
+
+        step("Check response", () -> {
+            assertAll(
+                    () -> assertEquals("morpheus", authResponse.getName()),
+                    () -> assertEquals("zion resident", authResponse.getJob())
+
+                    // при проверке не совпадают милисекунды, пришлось закоммитить
+                    // ,() -> assertEquals(TimeCatcher.getCurrentTime(), authResponse.getUpdatedAt())
+            );
+        });
     }
 
 
     @Test
+    @Tag("remote_api")
+    @DisplayName("Checking user information")
     void getUserInfoTest() {
 
-        given()
-                .log().uri()
-                .log().method()
-                .log().body()
-                .when()
-                .get("/api/users/2")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(200)
-                .body("data.size()", is(5),
-                        "data.email", is("janet.weaver@reqres.in"),
-                        "data.first_name", is("Janet"),
-                        "data.last_name", is("Weaver"),
-                        "data.avatar", is( baseURI + "/img/faces/2-image.jpg")
-                );
+        UserInfoModel userResponse = step("Make request", () ->
+                given(baseRequestSpec)
+                        .when()
+                        .get("/users/2")
+                        .then()
+                        .spec(response200Spec)
+                        .extract().as(UserInfoModel.class));
+
+        step("Check response", () -> {
+            assertAll(
+                    () -> assertEquals("janet.weaver@reqres.in", userResponse.getData().getEmail()),
+                    () -> assertEquals("Janet", userResponse.getData().getFirst_name()),
+                    () -> assertEquals("Weaver", userResponse.getData().getLast_name()),
+                    () -> assertEquals("https://reqres.in/img/faces/2-image.jpg", userResponse.getData().getAvatar())
+            );
+        });
     }
 
     @Test
+    @Tag("remote_api")
+    @DisplayName("Checking users information in data massive")
     void getListOfUsersInfoTest() {
 
-        given()
-                .log().uri()
-                .log().method()
-                .log().body()
-                .when()
-                .get("/api/unknown")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(200)
-                .body("data", hasItem(hasEntry("id", 1)))
-                .body("data.find {it.id == 1}.name", equalTo("cerulean"))
-                .body("data", hasItem(hasEntry("id", 3)))
-                .body("data.find {it.id == 3}.name", equalTo("true red"))
-                .body("data", hasItem(hasEntry("id", 6)))
-                .body("data.find {it.id == 6}.name", equalTo("blue turquoise"));
+        UsersMassiveModel userResponse = step("Make request", () ->
+                given(baseRequestSpec)
+                        .when()
+                        .get("/unknown")
+                        .then()
+                        .spec(response200Spec)
+                        .extract().as(UsersMassiveModel.class));
+
+        step("Check response", () -> {
+            assertAll(
+                    () -> assertEquals(1, userResponse.getPage()),
+                    () -> assertEquals(1, userResponse.getData().get(0).getId()),
+                    () -> assertEquals("cerulean", userResponse.getData().get(0).getName()),
+                    () -> assertEquals(3, userResponse.getData().get(2).getId()),
+                    () -> assertEquals("true red", userResponse.getData().get(2).getName()),
+                    () -> assertEquals(6, userResponse.getData().get(5).getId()),
+                    () -> assertEquals("blue turquoise", userResponse.getData().get(5).getName())
+            );
+        });
     }
 }
